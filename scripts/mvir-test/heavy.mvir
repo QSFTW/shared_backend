@@ -8,7 +8,7 @@ main() {
     x = 1;
     y = 1;
     z = 2;
-    while (copy(i) < 1000) {
+    while (copy(i) < 10) {
         //The number of iterations can be changed to simulate different complexity.
         i = copy(i) + 1;
         tmp = copy(z);
