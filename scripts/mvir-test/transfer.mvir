@@ -1,10 +1,16 @@
 import 0x01.LibraAccount;
 import 0x01.Coin1;
 import 0x01.Signer;
-main ( payer: &signer, payee: address, amount: u64) 
+main ( account: &signer, payee: address, amount: u64) 
 {
-    payer_withdrawal_cap = LibraAccount.extract_withdraw_capability(payer);
-    
-    LibraAccount.pay_from<Coin1>(&payer_withdrawal_cap ,move(payee), move(amount), x"", x"");
+    let addr: address;
+    let old_balance: u64;
+    let with_cap: LibraAccount.WithdrawCapability;
+
+    addr = Signer.address_of(copy(account));
+
+    with_cap = LibraAccount.extract_withdraw_capability(copy(account));
+    LibraAccount.pay_from<Coin1.Coin1>(&with_cap, copy(addr), 0, h"", h"");
+    LibraAccount.restore_withdraw_capability(move(with_cap)); 
     return;
 }
